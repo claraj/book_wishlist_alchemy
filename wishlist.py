@@ -1,7 +1,7 @@
 #Main program
 
-import ui, datastore
-from book import Book
+from wishlist import ui, datastore, book
+from wishlist.book import Book
 
 
 def handle_choice(choice):

@@ -16,6 +16,11 @@ class Book(Base):
     title = Column(String, nullable=False)
     read = Column(Boolean, default=False)
 
+    def __init__(self, title, author, read=False):
+        self.title = title
+        self.author = author
+        self.read = read
+        
 
     def __str__(self):
         read_str = 'no'
@@ -29,7 +34,5 @@ class Book(Base):
         template = 'id: {} Title: {} Author: {} Read: {}'
         return template.format(id_str, self.title, self.author, read_str)
 
-
-print('hello!!')
 
 Base.metadata.create_all(engine)

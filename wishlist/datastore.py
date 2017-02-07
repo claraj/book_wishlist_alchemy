@@ -2,8 +2,7 @@ from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy.orm.exc import NoResultFound
 
-import book
-from book import Book
+from .book import Book
 
 
 engine = create_engine('sqlite:///book_wishlist.db', echo=False)
@@ -24,15 +23,14 @@ def shutdown():
 def get_books(**kwargs):
     ''' Return books from DB. With no arguments, returns everything. '''
 
-    if kwargs == None:
+    if len(kwargs) == 0:
         all_books = session.query(Book).all()
         return all_books
 
-    read = kwargs['read']
-
-    if read is not None:
-        all_books = session.query(Book).filter_by(read=read).all()
-        return all_books
+    if 'read' in kwargs.keys():
+        is_read = kwargs['read']
+        books = session.query(Book).filter_by(read=is_read).all()
+        return books
 
 
 def add_book(book):
